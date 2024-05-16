@@ -1,27 +1,114 @@
-# CommentsApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.1.
+# Comments App
 
-## Development server
+A Progressive Web App (PWA) built with Angular to collect user comments on specific topics. The application works both online and offline, saving comments locally when offline and syncing them when the connection is restored.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
 
-## Code scaffolding
+- **PWA Capabilities**: Works offline and can be added to the home screen on mobile devices.
+- **Reactive Forms**: Uses Angular reactive forms for validation.
+- **In-Memory Web API**: Simulates a backend for development purposes.
+- **Dynamic Topics**: Users can select a topic and view comments related to that topic.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Technologies Used
 
-## Build
+- Angular
+- Angular Forms
+- Angular Service Worker
+- Angular In-Memory Web API
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Getting Started
 
-## Running unit tests
+### Prerequisites
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Node.js and npm installed on your machine.
+- Angular CLI installed globally. If not, install it using:
+  \`\`\`bash
+  npm install -g @angular/cli
+  \`\`\`
 
-## Running end-to-end tests
+### Installation
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1. Clone the repository:
+   \`\`\`bash
+   git clone https://github.com/yourusername/comments-app.git
+   cd comments-app
+   \`\`\`
 
-## Further help
+2. Install dependencies:
+   \`\`\`bash
+   npm install
+   \`\`\`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Running the Application
+
+1. Start the development server:
+   \`\`\`bash
+   ng serve
+   \`\`\`
+
+2. Open your browser and navigate to \`http://localhost:4200\`.
+
+### Building for Production
+
+1. Build the application for production:
+   \`\`\`bash
+   ng build --prod
+   \`\`\`
+
+2. The production-ready files are in the \`dist/\` directory.
+
+### PWA Features
+
+1. To test PWA capabilities, build the application and serve it using a static server like \`http-server\`:
+   \`\`\`bash
+   npm install -g http-server
+   http-server ./dist/comments-app
+   \`\`\`
+
+2. Open your browser and navigate to the displayed local server address.
+
+## Project Structure
+
+\`\`\`
+comments-app/
+├── src/
+│   ├── app/
+│   │   ├── components/
+│   │   │   └── comment-form/
+│   │   │       ├── comment-form.component.ts
+│   │   │       ├── comment-form.component.html
+│   │   │       └── comment-form.component.scss
+│   │   ├── models/
+│   │   │   └── comment.model.ts
+│   │   ├── services/
+│   │   │   └── comment.service.ts
+│   │   └── in-memory-data.service.ts
+│   ├── assets/
+│   ├── environments/
+│   ├── index.html
+│   └── main.ts
+├── .angular-cli.json
+├── package.json
+└── README.md
+\`\`\`
+
+## Usage
+
+- Select a topic from the dropdown menu.
+- Enter a comment in the text area.
+- Click "Save" to submit the comment.
+- View the comments for the selected topic on the right side of the form.
+- If offline, the comments will be saved locally and synced when back online.
+
+## Contributing
+
+1. Fork the repository.
+2. Create a new branch: \`git checkout -b feature-name\`.
+3. Make your changes and commit them: \`git commit -m 'Add some feature'\`.
+4. Push to the branch: \`git push origin feature-name\`.
+5. Submit a pull request.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

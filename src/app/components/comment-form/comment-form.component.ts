@@ -12,7 +12,7 @@ import { Comment } from 'src/app/models/comment.model';
 export class CommentFormComponent implements OnInit {
   commentForm: FormGroup;
   isOnline: boolean = true;
-  topics: string[] = ['Angular', 'React', 'Vue', 'Svelte'];
+  topics: string[] = ['Leapa', 'Cybersource', 'NexGo', 'Bancobu'];
   selectedTopic: string = '';
   comments: Comment[] = [];
 
@@ -39,8 +39,8 @@ export class CommentFormComponent implements OnInit {
       const { comment, topic } = this.commentForm.value;
       this.commentService.saveComment({ comment, topic });
       this.commentForm.reset();
-      this.commentForm.get('topic')?.setValue(topic); // Conserver le sujet sélectionné après réinitialisation
-      this.loadComments(topic); // Recharger les commentaires après en avoir ajouté un nouveau
+      this.commentForm.get('topic')?.setValue(topic); 
+      this.loadComments(topic);
     }
   }
 
