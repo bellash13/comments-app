@@ -1,37 +1,41 @@
-<div>
+<div class="card">
+  <div class="form-container">
     <form [formGroup]="commentForm" (ngSubmit)="onSubmit()">
-      <label for="topic">Sélectionner un sujet :</label>
-      <select id="topic" formControlName="topic">
-        <option *ngFor="let topic of topics" [value]="topic">{{ topic }}</option>
-      </select>
-      <div *ngIf="commentForm.get('topic')!.invalid && (commentForm.get('topic')!.dirty || commentForm.get('topic')!.touched)">
-        <div *ngIf="commentForm.get('topic')!.errors?.['required']">Le sujet est requis.</div>
+      <div class="form-group">
+        <label for="topic">Select Topic:</label>
+        <select id="topic" formControlName="topic">
+          <option *ngFor="let topic of topics" [value]="topic">{{ topic }}</option>
+        </select>
+        <div class="text-danger"
+          *ngIf="commentForm.get('topic')!.invalid && (commentForm.get('topic')!.dirty || commentForm.get('topic')!.touched)">
+          <div *ngIf="commentForm.get('topic')!.errors?.['required']">Topic is required.</div>
+        </div>
       </div>
-  
-      <label for="comment">Commentaire :</label>
-      <input type="text" id="comment" formControlName="comment">
-      <div *ngIf="commentForm.get('comment')!.invalid && (commentForm.get('comment')!.dirty || commentForm.get('comment')!.touched)">
-        <div *ngIf="commentForm.get('comment')!.errors?.['required']">Le commentaire est requis.</div>
-        <div *ngIf="commentForm.get('comment')!.errors?.['minlength']">Le commentaire doit contenir au moins 3 caractères.</div>
-        <div *ngIf="commentForm.get('comment')!.errors?.['maxlength']">Le commentaire ne peut pas dépasser 255 caractères.</div>
+      <div class="form-group">
+        <label for="comment">Comment:</label>
+        <textarea type="text" id="comment" formControlName="comment"></textarea>
+        <div class="text-danger"
+          *ngIf="commentForm.get('comment')!.invalid && (commentForm.get('comment')!.dirty || commentForm.get('comment')!.touched)">
+          <div *ngIf="commentForm.get('comment')!.errors?.['required']">Comment is required.</div>
+          <div *ngIf="commentForm.get('comment')!.errors?.['minlength']">Comment must be at least 3 characters long.</div>
+          <div *ngIf="commentForm.get('comment')!.errors?.['maxlength']">Comment cannot exceed 255 characters.</div>
+        </div>
       </div>
-  
-      <label for="author">Auteur :</label>
-      <input type="text" id="author" [value]="'John Doe'" readonly>
-  
-      <button type="submit" [disabled]="commentForm.invalid">Enregistrer</button>
+      <div class="form-group">
+        <button type="submit" [disabled]="commentForm.invalid">Save</button>
+      </div>
     </form>
-    <div *ngIf="!isOnline">
-      Vous êtes hors ligne. Les commentaires seront enregistrés lorsque vous serez de nouveau en ligne.
-    </div>
-  
-    <div *ngIf="selectedTopic">
-      <h3>Commentaires pour {{ selectedTopic }}</h3>
-      <ul>
-        <li *ngFor="let comment of comments">
-          <strong>{{ comment.author }}</strong> : {{ comment.comment }} <em>({{ comment.date | date:'short' }})</em>
-        </li>
-      </ul>
+    <div *ngIf="!isOnline" class="alert">
+      You are offline. Comments will be saved when you are back online.
     </div>
   </div>
-  
+
+  <div *ngIf="selectedTopic" class="comments-container">
+    <h3>Comments for {{ selectedTopic }}</h3>
+    <ul class="list-group">
+      <li *ngFor="let comment of comments" class="list-group-item">
+        <strong>{{ comment.author }}</strong>: {{ comment.comment }} <em>({{ comment.date | date:'short' }})</em>
+      </li>
+    </ul>
+  </div>
+</div>
