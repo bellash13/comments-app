@@ -31,7 +31,7 @@ A Progressive Web App (PWA) built with Angular to collect user comments on speci
 
 1. Clone the repository:
    \`\`\`bash
-   git clone https://github.com/yourusername/comments-app.git
+   git clone https://github.com/bellash13/comments-app.git
    cd comments-app
    \`\`\`
 
@@ -53,7 +53,7 @@ A Progressive Web App (PWA) built with Angular to collect user comments on speci
 
 1. Build the application for production:
    \`\`\`bash
-   ng build --prod
+   ng build --configuration production
    \`\`\`
 
 2. The production-ready files are in the \`dist/\` directory.
