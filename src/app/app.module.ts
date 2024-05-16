@@ -1,10 +1,14 @@
-import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { CommentFormComponent } from './components/comment-form/comment-form.component';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+
+import { AppComponent } from './app.component';
+import { CommentFormComponent } from 'src/app/components/comment-form/comment-form.component';
+import { InMemoryDataService } from 'src/app/services/in-memory-data.service';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -14,12 +18,10 @@ import { CommentFormComponent } from './components/comment-form/comment-form.com
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
+    HttpClientModule,
+    ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: /*environment.production*/false }),
+    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService)
   ],
   providers: [],
   bootstrap: [AppComponent]
