@@ -71,26 +71,7 @@ A Progressive Web App (PWA) built with Angular to collect user comments on speci
 ## Project Structure
 
 \`\`\`
-comments-app/
-├── src/
-│   ├── app/
-│   │   ├── components/
-│   │   │   └── comment-form/
-│   │   │       ├── comment-form.component.ts
-│   │   │       ├── comment-form.component.html
-│   │   │       └── comment-form.component.scss
-│   │   ├── models/
-│   │   │   └── comment.model.ts
-│   │   ├── services/
-│   │   │   └── comment.service.ts
-│   │   └── in-memory-data.service.ts
-│   ├── assets/
-│   ├── environments/
-│   ├── index.html
-│   └── main.ts
-├── .angular-cli.json
-├── package.json
-└── README.md
+![alt text](image.png)
 \`\`\`
 
 ## Usage
