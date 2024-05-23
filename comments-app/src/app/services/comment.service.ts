@@ -12,26 +12,30 @@ export class CommentService {
   private isOnline = new BehaviorSubject<boolean>(navigator.onLine); // Observable for online status
   private apiUrl = 'http://127.0.0.1:8000/api/comments'; // URL of the server API
   private syncUrl = 'http://127.0.0.1:8000/api/sync';
-  private currentId = 61; // Starting ID for new comments
 
   constructor(private http: HttpClient) {
     // Event listeners for online/offline status changes
-    window.addEventListener('online', () => this.syncComments());
+    window.addEventListener('online', () => this.updateOnlineStatus());
     window.addEventListener('offline', () => this.updateOnlineStatus());
   }
 
   private updateOnlineStatus() {
-    this.isOnline.next(navigator.onLine);
+    const onlineStatus = navigator.onLine;
+    this.isOnline.next(onlineStatus);
+
+    if (onlineStatus) {
+      this.syncComments();
+    }
   }
 
   // Save a comment (either online or offline)
   saveComment(comment: Partial<Comment>) {
     const newComment: Comment = {
-      id: this.currentId++, // Assign a new numeric ID
       ...comment,
       author: 'John Doe',  // sample author
       date: new Date()
     } as Comment;
+
     if (navigator.onLine) {
       this.http.post<Comment>(this.apiUrl, newComment).subscribe({
         next: (res) => {
@@ -71,7 +75,7 @@ export class CommentService {
   }
 
   // Get the online status observable
-  getOnlineStatus() {
+  getOnlineStatus(): Observable<boolean> {
     return this.isOnline.asObservable();
   }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommentService } from 'src/app/services/comment.service';
 import { Comment } from 'src/app/models/comment.model';
-
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-comment-form',
@@ -14,15 +14,12 @@ export class CommentFormComponent implements OnInit {
   isOnline: boolean = true;
   topics: string[] = ['Leapa', 'Cybersource', 'NexGo', 'Bancobu'];
   selectedTopic: string = '';
-  comments: Comment[] = [];
+  comments$!: Observable<Comment[]>;
 
   constructor(private fb: FormBuilder, private commentService: CommentService) {
     this.commentForm = this.fb.group({
-      id:['',[]],
       comment: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
-      topic: ['', Validators.required], 
-      author: ['John Doe',[]],
-      date: [new Date(),[]]
+      topic: ['', Validators.required]
     });
   }
 
@@ -42,16 +39,13 @@ export class CommentFormComponent implements OnInit {
       const { comment, topic } = this.commentForm.value;
       this.commentService.saveComment({ comment, topic });
       this.commentForm.reset();
-      this.commentForm.get('topic')?.setValue(topic); 
+      this.commentForm.get('topic')?.setValue(topic);
       this.loadComments(topic);
     }
   }
 
   loadComments(topic: string) {
-    console.log(`Loading comments for ${topic}`);
-    this.commentService.getCommentsByTopic(topic).subscribe((comments)=>{
-      this.comments = comments;
-    });
+    this.comments$ = this.commentService.getCommentsByTopic(topic);
   }
 
   get comment() {
