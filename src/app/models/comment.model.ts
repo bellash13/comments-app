@@ -1,7 +1,7 @@
 export interface Comment {
-    comment: string;
-    topic: string;
-    author: string;
-    date: Date;
-  }
-  
+  id: number;
+  comment: string;
+  topic: string;
+  author: string;
+  date: Date;
+}

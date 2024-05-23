@@ -18,8 +18,11 @@ export class CommentFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private commentService: CommentService) {
     this.commentForm = this.fb.group({
+      id:['',[]],
       comment: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(255)]],
-      topic: ['', Validators.required]
+      topic: ['', Validators.required], 
+      author: ['John Doe',[]],
+      date: [new Date(),[]]
     });
   }
 
@@ -45,7 +48,10 @@ export class CommentFormComponent implements OnInit {
   }
 
   loadComments(topic: string) {
-    this.comments = this.commentService.getCommentsByTopic(topic);
+    console.log(`Loading comments for ${topic}`);
+    this.commentService.getCommentsByTopic(topic).subscribe((comments)=>{
+      this.comments = comments;
+    });
   }
 
   get comment() {
