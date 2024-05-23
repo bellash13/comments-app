@@ -33,6 +33,7 @@
     <ul class="list-group">
       <li *ngFor="let comment of comments$ | async" class="list-group-item">
         <strong>{{ comment.author }}</strong>: {{ comment.comment }} <em>({{ comment.date | date:'short' }})</em>
+        <span *ngIf="comment.notSaved" class="text-danger">(Not saved...)</span>
       </li>
     </ul>
   </div>

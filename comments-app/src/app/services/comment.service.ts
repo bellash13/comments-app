@@ -49,6 +49,8 @@ export class CommentService {
   }
 
   private storeCommentOffline(comment: Comment) {
+    comment.id = Math.random(); // Assign a temporary ID
+    comment['notSaved'] = true; // Flag to indicate it's not saved
     const comments = JSON.parse(localStorage.getItem(this.commentsKey) || '[]');
     comments.push(comment);
     localStorage.setItem(this.commentsKey, JSON.stringify(comments));
@@ -69,9 +71,14 @@ export class CommentService {
 
   // Get comments filtered by topic
   getCommentsByTopic(topic: string): Observable<Comment[]> {
-    return this.http.get<Comment[]>(`${this.apiUrl}?topic=${topic}`).pipe(
-      map(comments => comments.filter(comment => comment.topic === topic))
-    );
+    if (navigator.onLine) {
+      return this.http.get<Comment[]>(`${this.apiUrl}?topic=${topic}`).pipe(
+        map(comments => comments.filter(comment => comment.topic === topic))
+      );
+    } else {
+      const comments = JSON.parse(localStorage.getItem(this.commentsKey) || '[]');
+      return new BehaviorSubject<Comment[]>(comments.filter((comment:Comment) => comment.topic === topic)).asObservable();
+    }
   }
 
   // Get the online status observable
