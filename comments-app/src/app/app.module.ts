@@ -1,14 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 
 import { AppComponent } from './app.component';
-import { CommentFormComponent } from 'src/app/components/comment-form/comment-form.component';
-import { InMemoryDataService } from 'src/app/services/in-memory-data.service';
+import { CommentFormComponent } from './components/comment-form/comment-form.component';
 import { AppRoutingModule } from './app-routing.module';
+import { JwtInterceptorService } from './interceptors/jwt-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -20,10 +19,15 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: /*environment.production*/false })/*,
-    HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService)*/
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: false })
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
